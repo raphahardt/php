@@ -90,30 +90,15 @@ class PagSeguroServiceException extends Exception
      */
     private function getHttpMessage()
     {
-        switch ($this->httpStatus->getType()) {
+        switch ($type = $this->httpStatus->getType()) {
 
             case 'BAD_REQUEST':
-                $message = "BAD_REQUEST";
-                break;
-
             case 'UNAUTHORIZED':
-                $message = "UNAUTHORIZED";
-                break;
-
             case 'FORBIDDEN':
-                $message = "FORBIDDEN";
-                break;
-
             case 'NOT_FOUND':
-                $message = "NOT_FOUND";
-                break;
-
             case 'INTERNAL_SERVER_ERROR':
-                $message = "INTERNAL_SERVER_ERROR";
-                break;
-
             case 'BAD_GATEWAY':
-                $message = "BAD_GATEWAY";
+                $message = $type;
                 break;
 
             default:

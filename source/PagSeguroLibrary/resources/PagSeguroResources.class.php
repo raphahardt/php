@@ -23,18 +23,13 @@ class PagSeguroResources
 
     private static $resources;
     private static $data;
-    const VAR_NAME = 'PagSeguroResources';
 
     private function __construct()
     {
         define('ALLOW_PAGSEGURO_RESOURCES', true);
-        require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR .
-            "PagSeguroResources.php";
-        $varName = self::VAR_NAME;
-        if (isset($$varName)) {
-            self::$data = $$varName;
-            unset($$varName);
-        } else {
+        self::$data = (require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" .
+            DIRECTORY_SEPARATOR . "PagSeguroResources.php");
+        if (!isset(self::$data)) {
             throw new Exception("Resources is undefined.");
         }
     }

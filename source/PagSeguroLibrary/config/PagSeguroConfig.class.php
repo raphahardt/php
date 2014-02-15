@@ -35,14 +35,9 @@ class PagSeguroConfig
     {
         define('ALLOW_PAGSEGURO_CONFIG', true);
 
-        require_once PagSeguroLibrary::getPath() .
-            DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
-        $varName = self::VARNAME;
-
-        if (isset($$varName)) {
-            self::$data = $$varName;
-            unset($$varName);
-        } else {
+        self::$data = (require_once PagSeguroLibrary::getPath() .
+            DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php");
+        if (!isset(self::$data)) {
             throw new Exception("Config is undefined.");
         }
     }

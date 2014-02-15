@@ -26,7 +26,7 @@
 class PagSeguroLibrary
 {
 
-    const VERSION = "2.2.0";
+    const VERSION = "2.2.1";
     public static $resources;
     public static $config;
     public static $log;
@@ -57,30 +57,13 @@ class PagSeguroLibrary
 
     private static function verifyDependencies()
     {
-
-        $dependencies = true;
-
-        try {
-            if (!function_exists('spl_autoload_register')) {
-                $dependencies = false;
-                throw new Exception("PagSeguroLibrary: Standard PHP Library (SPL) is required.");
-            }
-
-            if (!function_exists('curl_init')) {
-                $dependencies = false;
-                throw new Exception('PagSeguroLibrary: cURL library is required.');
-            }
-
-            if (!class_exists('DOMDocument')) {
-                $dependencies = false;
-                throw new Exception('PagSeguroLibrary: DOM XML extension is required.');
-            }
-        } catch (Exception $e) {
-            return $dependencies;
+        if (!function_exists('curl_init')) {
+            throw new Exception('PagSeguroLibrary: cURL library is required.');
         }
 
-        return $dependencies;
-
+        if (!class_exists('DOMDocument')) {
+            throw new Exception('PagSeguroLibrary: DOM XML extension is required.');
+        }
     }
 
     final public static function getVersion()
